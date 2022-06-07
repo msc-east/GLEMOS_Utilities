@@ -1,0 +1,19 @@
+!******** Input parameters for proc_boundary *********! 
+
+Substance:             BaP      ! Cd, Pb, Hg, BaP
+
+Input grid code:       GLOB_1x1
+Output grid code:      EMEP_04x04
+
+Start date:            20200101
+Finish date:           20200131
+
+!******************** File names **********************! 
+Input file:            _MixRat
+
+!*********************** Paths ************************!
+Grids path:            /home/alex/GLEMOS_WorkSpace/GLEMOS_Inputs/Config/
+Input path:            /home/alex/GLEMOS_WorkSpace/runs/BaP_GLOB_1x1_field_run/Output_dir_main/Atm/Fields_NCF/6hourly/
+Output path:           /home/alex/GLEMOS_WorkSpace/OpenData/BoundCond/
+
+

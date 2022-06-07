@@ -1,0 +1,67 @@
+#######################################################
+# Build structure of GLEMOS 
+# (c) Oleg Travnikov, MSC-E, 2017
+#######################################################
+
+ set Cfile = makefile
+ set dollar = '$'
+
+# Writing compiler parameters to a temporal file
+ echo                                                               > $Cfile
+ echo "FC = $FC"                                                   >> $Cfile
+ echo                                                              >> $Cfile
+ echo "FFLAGS1 = $FFLAGS1"                                         >> $Cfile
+ echo "FFLAGS2 = $FFLAGS2"                                         >> $Cfile
+ echo "FFLAGS = $dollar(FFLAGS1) -moddir=$dollar(MODDIR) $dollar(FFLAGS2)"        >> $Cfile
+ echo                                                              >> $Cfile
+ echo "LDLIBSOPTIONS = $LDLIBSOPTIONS"                             >> $Cfile  
+ echo                                                              >> $Cfile
+ echo "PRJDIR =  $PRJDIR"                                          >> $Cfile  
+ echo "SRCDIR =  $SRCDIR"                                          >> $Cfile  
+ echo "OBJDIR =  $OBJDIR"                                          >> $Cfile  
+ echo "MODDIR =  $MODDIR"                                          >> $Cfile  
+ echo "NSRCDIR = $NSRCDIR"                                         >> $Cfile  
+ echo                                                              >> $Cfile
+
+################## Definition of objetive files ####################
+
+ echo "OBJS = \"                                                   >> $Cfile
+ 
+# Common modules
+ echo "  $dollar(OBJDIR)/ncf/typeSizes.o \"                        >> $Cfile  
+ echo "  $dollar(OBJDIR)/ncf/netcdf.o \"                           >> $Cfile  
+ echo "  $dollar(OBJDIR)/params_boundary.o \"                      >> $Cfile  
+ echo "  $dollar(OBJDIR)/read_boundary.o \"                        >> $Cfile  
+ echo "  $dollar(OBJDIR)/proc_boundary.o "                         >> $Cfile  
+ echo                                                              >> $Cfile
+
+###################### Compilation ######################
+
+ echo "  $dollar(PRJDIR)/proc_boundary: $dollar(OBJS)"                                                                	>> $Cfile
+ echo "	$dollar(FC) -o $dollar(PRJDIR)/proc_boundary $dollar(OBJS) $dollar{LDLIBSOPTIONS}"                            	>> $Cfile  
+ echo                                                                                                           	>> $Cfile
+
+# Common modules
+ echo "  $dollar(OBJDIR)/ncf/typeSizes.o: $dollar(NSRCDIR)/typeSizes.f90"                                       	>> $Cfile  
+ echo "	$dollar(FC) $dollar(FFLAGS) $dollar(OBJDIR)/ncf/typeSizes.o $dollar(NSRCDIR)/typeSizes.f90"             	>> $Cfile  
+ echo                                                                                                           	>> $Cfile
+ echo "  $dollar(OBJDIR)/ncf/netcdf.o: $dollar(NSRCDIR)/netcdf.f90"                                             	>> $Cfile  
+ echo "	$dollar(FC) $dollar(FFLAGS) $dollar(OBJDIR)/ncf/netcdf.o $dollar(NSRCDIR)/netcdf.f90"                  		>> $Cfile  
+ echo                                                                                                           	>> $Cfile
+ echo "  $dollar(OBJDIR)/params_boundary.o: $dollar(SRCDIR)/params_boundary.f95"                                    	>> $Cfile  
+ echo "	$dollar(FC) $dollar(FFLAGS) $dollar(OBJDIR)/params_boundary.o $dollar(SRCDIR)/params_boundary.f95"          	>> $Cfile  
+ echo             											       		>> $Cfile          
+ echo "  $dollar(OBJDIR)/read_boundary.o: $dollar(SRCDIR)/read_boundary.f95"                                    	>> $Cfile  
+ echo "	$dollar(FC) $dollar(FFLAGS) $dollar(OBJDIR)/read_boundary.o $dollar(SRCDIR)/read_boundary.f95"          	>> $Cfile  
+ echo             											       		>> $Cfile          
+ echo "  $dollar(OBJDIR)/proc_boundary.o: $dollar(SRCDIR)/proc_boundary.f95"                            		>> $Cfile  
+ echo "	$dollar(FC) $dollar(FFLAGS) $dollar(OBJDIR)/proc_boundary.o $dollar(SRCDIR)/proc_boundary.f95"  		>> $Cfile  
+ echo             											       		>> $Cfile          
+
+ echo "clean:"                                                         							>> $Cfile
+ echo "	rm -f "$OBJDIR"/*.o"                                           							>> $Cfile
+ echo "	rm -f "$OBJDIR"/ncf/*.o"                                       							>> $Cfile
+ echo "	rm -f "$MODDIR"/*.mod"                                         							>> $Cfile
+ echo "	rm -f "$PRJDIR"/proc_boundary"                                        						>> $Cfile
+
+chmod 777 $Cfile                                                                                                        >> $Cfile

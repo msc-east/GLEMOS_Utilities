@@ -1,0 +1,117 @@
+#!/bin/csh -f
+
+#################################################
+# A script creating makefile for proc_landcover 
+# compilation and building
+# (c) Oleg Travnikov, MSC-E, 2017
+#################################################
+
+set RunInfo = RunInfo.dat
+set fileCompiler = compiler_settings.boundary
+set fileBuild = build_structure.boundary
+
+set Cfile = tmp.GLEMOS
+set Cfile2 = tmp2.GLEMOS
+
+set grid = '#!'
+echo $grid'/bin/csh -f'                                          > $Cfile
+
+#################################################
+# Reading compiler settings
+#################################################
+
+set str = `grep '^FC' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set str = `grep '^FFLAGS1' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set str = `grep '^FFLAGS2' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set str = `grep '^LDLIBSOPTIONS' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+echo                                                            >> $Cfile
+
+#################################################
+# Reading & writing paths
+#################################################
+
+# Project path
+set str = `grep '^PRJDIR' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set pos = `expr index "$str" =`
+@ start = $pos + 1
+set lengStr = `expr length "$str"`
+@ leng = $lengStr + 1 - $start 
+set PRJDIR = `expr substr "$str" $start $leng`
+
+# Source path
+set str = `grep '^SRCDIR' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+
+# Object path
+set str = `grep '^OBJDIR' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set pos = `expr index "$str" =`
+@ start = $pos + 1
+set lengStr = `expr length "$str"`
+@ leng = $lengStr + 1 - $start
+set OBJDIR = `expr substr "$str" $start $leng`
+
+set pos = `expr index "$OBJDIR" /`
+@ leng = $pos - 1
+set str = `expr substr "$OBJDIR" 1 $leng`
+if($str == '$PRJDIR') then
+  @ start = $pos
+  set lengStr = `expr length "$OBJDIR"`
+  @ leng = $lengStr + 1 - $start
+  set OBJDIR = `expr substr "$OBJDIR" $start $leng`
+  set OBJDIR = $PRJDIR$OBJDIR
+endif
+mkdir -p $OBJDIR
+mkdir -p $OBJDIR/ncf
+
+# Modules path
+set str = `grep '^MODDIR' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+set pos = `expr index "$str" =`
+@ start = $pos + 1
+set lengStr = `expr length "$str"`
+@ leng = $lengStr + 1 - $start
+set MODDIR = `expr substr "$str" $start $leng`
+
+set pos = `expr index "$MODDIR" /`
+@ leng = $pos - 1
+set str = `expr substr "$MODDIR" 1 $leng`
+if($str == '$PRJDIR') then
+  @ start = $pos
+  set lengStr = `expr length "$MODDIR"`
+  @ leng = $lengStr + 1 - $start
+  set MODDIR = `expr substr "$MODDIR" $start $leng`
+  set MODDIR = $PRJDIR$MODDIR
+endif
+mkdir -p $MODDIR
+
+# NetCDF path
+set str = `grep '^NSRCDIR' $fileCompiler`
+echo ' set' $str                                                >> $Cfile
+echo                                                            >> $Cfile
+
+#################################################
+# Creating Makefile
+#################################################
+
+cat $Cfile $fileBuild > $Cfile2
+chmod 777 $Cfile2     
+
+rm -f /makefile
+
+./$Cfile2
+
+rm $Cfile
+rm $Cfile2
+
+if ( $1 == '' ) then
+  make
+else
+  make $1
+endif
+

@@ -1,0 +1,35 @@
+#######################################################
+################ FORTRAN COMPILER #####################
+#######################################################
+
+# Fortran compiler path
+
+FC = /home/alex/Soft/OracleDeveloperStudio12.6-linux-x86-bin/developerstudio12.6/bin/f95
+#FC = /opt/oracle/solstudio12.2/bin/f95
+
+# Fortran compiler flags
+FFLAGS1 = "-m64 -f77=output -fpp"
+FFLAGS2 = "-c -fast -g -w1 -o"  # -xvector=simd
+
+# Linker Libraries and Options
+
+LDLIBSOPTIONS = "-L/home/alex/netcdf-fortran-4.5.2/fortran/.libs -lnetcdff"
+
+#######################################################
+###################### PATHS ##########################
+#######################################################
+
+# Project Directory
+PRJDIR = /home/alex/GLEMOS_WorkSpace/GLEMOS_Utilities/Boundary
+
+# Source Directory
+SRCDIR = $PRJDIR/src
+
+# Object Directory
+OBJDIR = $PRJDIR/build/objs
+
+# Module Directory
+MODDIR = $PRJDIR/build/mods
+
+# NetCDF Source Directory
+NSRCDIR = /home/alex/netcdf-fortran-4.5.2/fortran
