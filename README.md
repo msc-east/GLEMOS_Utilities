@@ -1,6 +1,6 @@
 # Description
 
-This repository is a part of the GLEMOS WorkSpace and contains the GLEMOS utilities required for the processing of the input and output data of the model. User Manual is avalible on the MSC-E website: https://www.msceast.org/
+This repository is a part of the GLEMOS WorkSpace and contains the GLEMOS utilities required for the processing of the input and output data of the model. 
 
 
 # About GLEMOS
