@@ -20,7 +20,7 @@ The model has been verified to run on Linux Ubuntu 20.04 with HDF5 v1.10.5, netc
 
 ## Downloading the input data
 
-The model input data are separated into several storages. Each piece of data is reachable by corresponding link:
+The sample input data are separated into several storages. Each piece of data is reachable by corresponding link:
 
 * Emissions - https://drive.google.com/file/d/1UlbO98wB_J9sKhq2kuIPt5iDHwY40Jkm/view?usp=sharing
 * MeteoData - https://drive.google.com/file/d/1K06uLzNB0ZHmt0VbkzDoxuAcP5lyblwy/view?usp=sharing
@@ -29,7 +29,9 @@ The model input data are separated into several storages. Each piece of data is 
 * LandCover - https://drive.google.com/file/d/1Kpp62GMpdVXWgFJ85JRRPirfy50t4dLC/view?usp=sharing
 * ReactData - https://drive.google.com/file/d/1gsn5z7J77ReN_GfAaL-h5IjqIJjeymKL/view?usp=sharing
 
-This dataset covers a short time period (January 2020) and is an example of input data for the model. It includes data for monthly modeling of Hg, Cd, Pb and BaP on global 1°x1° and on regional 04°x04° scales (the regional domain covers the EMEP region). Detailed description of these data as well as instructions for organizing local storage can be found in the chapter 5 of the GLEMOS User Manual. 
+This sample dataset allows to test only the basic research functionality of the model. Generally, GLEMOS allows application on different geographical scales with various spatial resolutions. The base model grid on a global scale has horizontal resolution 1°×1°. The standard regional model domain covers the EMEP region (30°N-82°N, 30°W-90°E) with a spatial grid that has a changeable resolution down to 0.1°×0.1°. In addition, a variety of smaller domains can be used for national scale case studies. MSC-E suggest users prepare input data for their research tasks themselves in a format similar to provided sample. MSC-E is ready to provide users with advice and assistance.
+
+The sample dataset that comes this the model covers a short time period (January 2020) and is an example of input data for the model. It includes data for monthly modeling of Hg, Cd, Pb and BaP on global 1°x1° and on regional 04°x04° scales (the regional domain covers the EMEP region). Detailed description of these data as well as instructions for organizing local storage can be found in the chapter 5 of the GLEMOS User Manual. 
 
 ## Configuring of model runs
 
